@@ -16,14 +16,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 import java.io.OutputStream;
 
+@Validated
 @RestController
 @RequestMapping("/images")
 public class ImageController {
@@ -67,7 +70,7 @@ public class ImageController {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<byte[]> get(@PathVariable("uuid") String uuid, @ApiIgnore OAuth2Authentication authentication) {
+    public ResponseEntity<byte[]> get(@NotBlank @PathVariable("uuid") String uuid, @ApiIgnore OAuth2Authentication authentication) {
         String userUuid = TokenUuidExtractor.extract(authentication);
 
         GetImageDTO dto = GetImageDTO.builder()
@@ -85,7 +88,7 @@ public class ImageController {
     }
 
     @GetMapping("/download/{uuid}")
-    public void get(@PathVariable("uuid") String uuid,
+    public void get(@NotBlank @PathVariable("uuid") String uuid,
                     @ApiIgnore HttpServletResponse response,
                     @ApiIgnore OAuth2Authentication authentication) {
         String userUuid = TokenUuidExtractor.extract(authentication);

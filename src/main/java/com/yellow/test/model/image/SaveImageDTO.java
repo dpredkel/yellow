@@ -15,7 +15,5 @@ public class SaveImageDTO implements Serializable {
     private String filename;
     private String contentType;
     private byte[] data;
-
-    // TODO: 2/16/2019 Ignore by swagger
     private String userUuid;
 }

@@ -4,7 +4,6 @@ import com.yellow.test.entity.Image;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -16,7 +15,4 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     @Query("select i from Image i join i.user u where i.uuid = :uuid and u.uuid = :userUuid")
     Image findByUuidAndUserUuid(@Param("uuid") String uuid, @Param("userUuid") String userUuid);
 
-    @Modifying
-    @Query("delete from Image i where i.uuid = :uuid and i.user.uuid = :userUuid")
-    int deleteByUuidAndUserUuid(@Param("uuid") String uuid, @Param("userUuid") String userUuid);
 }

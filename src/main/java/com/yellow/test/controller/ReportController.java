@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Validated
 @RestController
@@ -25,7 +26,7 @@ public class ReportController {
     private ReportService service;
 
     @GetMapping("/{offset}")
-    public ResponseEntity<ReportDTO> create(@Min(0) @PathVariable("offset") Integer offset,
+    public ResponseEntity<ReportDTO> create(@NotNull @Min(0) @PathVariable("offset") Integer offset,
                                             @ApiIgnore OAuth2Authentication authentication) {
         String userUuid = TokenUuidExtractor.extract(authentication);
 

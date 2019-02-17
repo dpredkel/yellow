@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -20,12 +21,14 @@ public class UpdateRunningDTO implements Serializable {
     private String uuid;
 
     @Min(1)
+    @NotNull
     @JsonProperty("distance")
-    private int distance;
+    private Integer distance;
 
     @Min(1)
+    @NotNull
     @JsonProperty("duration")
-    private int duration;
+    private Integer duration;
 
     @NotBlank
     // TODO: 2/16/2019 Add pattern for date

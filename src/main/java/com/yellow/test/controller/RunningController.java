@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/runnings")
@@ -70,7 +71,7 @@ public class RunningController {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<RunningDTO> get(@PathVariable("uuid") String uuid, @ApiIgnore OAuth2Authentication authentication) {
+    public ResponseEntity<RunningDTO> get(@NotBlank @PathVariable("uuid") String uuid, @ApiIgnore OAuth2Authentication authentication) {
         String userUuid = TokenUuidExtractor.extract(authentication);
         GetRunningDTO dto = GetRunningDTO.builder()
                 .uuid(uuid)
@@ -81,7 +82,7 @@ public class RunningController {
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("uuid") String uuid, @ApiIgnore OAuth2Authentication authentication) {
+    public ResponseEntity<HttpStatus> delete(@NotBlank @PathVariable("uuid") String uuid, @ApiIgnore OAuth2Authentication authentication) {
         String userUuid = TokenUuidExtractor.extract(authentication);
         DeleteRunningDTO dto = DeleteRunningDTO.builder()
                 .uuid(uuid)
