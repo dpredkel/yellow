@@ -32,6 +32,7 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, SWAGGER_PATH).permitAll()
                 .antMatchers(HttpMethod.GET, OTHER_PATH).permitAll()
+                .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateRunningDTO implements Serializable {
+public class SaveRunningDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Min(1)

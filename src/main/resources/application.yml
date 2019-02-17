@@ -7,7 +7,7 @@ spring:
     show-sql: false
     open-in-view: false
     hibernate:
-      ddlAuto: update
+      ddlAuto: validate
     properties:
       hibernate:
         jdbc.lob.non_contextual_creation: true

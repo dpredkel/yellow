@@ -2,16 +2,16 @@ package com.yellow.test.mapper.running;
 
 import com.yellow.test.entity.Running;
 import com.yellow.test.mapper.Mapper;
-import com.yellow.test.model.running.CreateRunningDTO;
+import com.yellow.test.model.running.SaveRunningDTO;
 import com.yellow.test.util.Generator;
-import com.yellow.test.util.LocalDateUtil;
+import com.yellow.test.util.ld.LocalDateFormatter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateRunningDTOToRunningMapper implements Mapper<CreateRunningDTO, Running> {
+public class SaveRunningDTOToRunningMapper implements Mapper<SaveRunningDTO, Running> {
 
     @Override
-    public Running map(CreateRunningDTO value) {
+    public Running map(SaveRunningDTO value) {
         if (value == null)
             return null;
 
@@ -19,7 +19,7 @@ public class CreateRunningDTOToRunningMapper implements Mapper<CreateRunningDTO,
                 .uuid(Generator.uuidAsString())
                 .distance(value.getDistance())
                 .duration(value.getDuration())
-                .date(LocalDateUtil.parse(value.getDate()))
+                .date(LocalDateFormatter.parse(value.getDate()))
                 .build();
     }
 }

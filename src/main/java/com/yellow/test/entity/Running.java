@@ -28,7 +28,7 @@ public class Running {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "runningsSequenceGenerator")
     private long id;
 
-    @Column(name = "uuid", nullable = false, unique = true, length = 50)
+    @Column(name = "uuid", nullable = false, unique = true, length = 100)
     private String uuid;
 
     // in meters
@@ -39,7 +39,6 @@ public class Running {
     @Column(name = "duration", nullable = false)
     private Integer duration;
 
-    // yyyy-MMM-dd
     @Column(name = "date", nullable = false)
     private LocalDate date;
 

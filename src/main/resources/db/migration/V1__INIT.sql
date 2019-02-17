@@ -23,3 +23,17 @@ CREATE TABLE runnings
   CONSTRAINT fk_runnings_users FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
+----------------------------------------------------------------------------------------
+
+CREATE SEQUENCE images_seq;
+CREATE TABLE images
+(
+  id           BIGINT       NOT NULL DEFAULT nextval('images_seq') PRIMARY KEY,
+  uuid         VARCHAR(100) NOT NULL UNIQUE,
+  filename     VARCHAR(100),
+  content_type VARCHAR(50),
+  data         BYTEA,
+  user_id      BIGINT       NOT NULL,
+  CONSTRAINT fk_images_users FOREIGN KEY (user_id) REFERENCES users (id)
+);
+

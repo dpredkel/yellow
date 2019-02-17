@@ -6,11 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -28,16 +30,16 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(commonErrorDetail, HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(AccessDeniedException.class)
-//    public ResponseEntity handleServiceException(AccessDeniedException exception, HttpServletRequest request) {
-//        CommonErrorDetail commonErrorDetail = prepareBuilder(exception, request)
-//                .status(HttpStatus.FORBIDDEN.value())
-//                .title("Access denied")
-//                .build();
-//        return new ResponseEntity<>(commonErrorDetail, HttpStatus.FORBIDDEN);
-//    }
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity handleServiceException(AccessDeniedException exception, HttpServletRequest request) {
+        CommonErrorDetail commonErrorDetail = prepareBuilder(exception, request)
+                .status(HttpStatus.FORBIDDEN.value())
+                .title("Access denied")
+                .build();
+        return new ResponseEntity<>(commonErrorDetail, HttpStatus.FORBIDDEN);
+    }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class, IllegalArgumentException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class, IllegalArgumentException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity handleValidationException(Exception exception, HttpServletRequest request) {
         CommonErrorDetail commonErrorDetail = prepareBuilder(exception, request)
                 .status(HttpStatus.BAD_REQUEST.value())

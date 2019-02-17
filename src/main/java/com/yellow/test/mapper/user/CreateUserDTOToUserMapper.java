@@ -3,20 +3,20 @@ package com.yellow.test.mapper.user;
 import com.yellow.test.entity.Authority;
 import com.yellow.test.entity.User;
 import com.yellow.test.mapper.Mapper;
-import com.yellow.test.model.user.CreateUserDTO;
+import com.yellow.test.model.user.SaveUserDTO;
 import com.yellow.test.util.Generator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateUserDTOToUserMapper implements Mapper<CreateUserDTO, User> {
+public class CreateUserDTOToUserMapper implements Mapper<SaveUserDTO, User> {
 
     @Autowired
     private PasswordEncoder encoder;
 
     @Override
-    public User map(CreateUserDTO value) {
+    public User map(SaveUserDTO value) {
         if (value == null)
             return null;
 

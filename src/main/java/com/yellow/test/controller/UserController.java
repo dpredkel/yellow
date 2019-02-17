@@ -1,6 +1,6 @@
 package com.yellow.test.controller;
 
-import com.yellow.test.model.user.CreateUserDTO;
+import com.yellow.test.model.user.SaveUserDTO;
 import com.yellow.test.model.user.UserDTO;
 import com.yellow.test.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class UserController {
     private UserService service;
 
     @PostMapping
-    public ResponseEntity<UserDTO> create(@Valid @RequestBody CreateUserDTO dto) {
+    public ResponseEntity<UserDTO> create(@Valid @RequestBody SaveUserDTO dto) {
         UserDTO saved = service.save(dto);
         return ResponseEntity.ok(saved);
     }

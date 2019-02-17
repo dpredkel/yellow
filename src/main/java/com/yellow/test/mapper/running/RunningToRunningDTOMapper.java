@@ -3,7 +3,7 @@ package com.yellow.test.mapper.running;
 import com.yellow.test.entity.Running;
 import com.yellow.test.mapper.Mapper;
 import com.yellow.test.model.running.RunningDTO;
-import com.yellow.test.util.LocalDateUtil;
+import com.yellow.test.util.ld.LocalDateFormatter;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +18,7 @@ public class RunningToRunningDTOMapper implements Mapper<Running, RunningDTO> {
                 .uuid(value.getUuid())
                 .distance(value.getDistance())
                 .duration(value.getDuration())
-                .date(LocalDateUtil.format(value.getDate()))
+                .date(LocalDateFormatter.format(value.getDate()))
                 .build();
     }
 }

@@ -8,7 +8,7 @@ import com.yellow.test.model.running.*;
 import com.yellow.test.repository.RunningRepository;
 import com.yellow.test.repository.UserRepository;
 import com.yellow.test.service.msg.MsgService;
-import com.yellow.test.util.LocalDateUtil;
+import com.yellow.test.util.ld.LocalDateFormatter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,13 +30,13 @@ public class RunningServiceImpl implements RunningService {
     private UserRepository userRepository;
 
     @Autowired
-    private Mapper<CreateRunningDTO, Running> mapper;
+    private Mapper<SaveRunningDTO, Running> mapper;
 
     @Autowired
     private Mapper<Running, RunningDTO> toDTOMapper;
 
     @Override
-    public RunningDTO save(CreateRunningDTO dto) {
+    public RunningDTO save(SaveRunningDTO dto) {
         Running running = mapper.map(dto);
         running.setUser(userRepository.findByUuid(dto.getUserUuid()));
         Running saved = repository.save(running);
@@ -47,11 +47,11 @@ public class RunningServiceImpl implements RunningService {
     public RunningDTO update(UpdateRunningDTO dto) {
         Running existing = repository.findByUuidAndUserUuid(dto.getUuid(), dto.getUserUuid());
         if (existing == null)
-            throw new ServiceRuntimeException(msgService.msg(Code.C_1002.getMsg(), dto.getUuid()), Code.C_1002.getValue());
+            throw new ServiceRuntimeException(msgService.msg(Code.C_1003.getMsg(), dto.getUuid(), dto.getUserUuid()), Code.C_1003.getValue());
 
         existing.setDistance(dto.getDistance());
         existing.setDuration(dto.getDuration());
-        existing.setDate(LocalDateUtil.parse(dto.getDate()));
+        existing.setDate(LocalDateFormatter.parse(dto.getDate()));
 
         Running saved = repository.save(existing);
         return toDTOMapper.map(saved);
@@ -69,7 +69,7 @@ public class RunningServiceImpl implements RunningService {
     public RunningDTO findByUuidAndUserUuid(GetRunningDTO dto) {
         Running entity = repository.findByUuidAndUserUuid(dto.getUuid(), dto.getUserUuid());
         if (entity == null)
-            throw new ServiceRuntimeException(msgService.msg(Code.C_1002.getMsg(), dto.getUuid()), Code.C_1002.getValue());
+            throw new ServiceRuntimeException(msgService.msg(Code.C_1003.getMsg(), dto.getUuid(), dto.getUserUuid()), Code.C_1003.getValue());
 
         return toDTOMapper.map(entity);
     }
@@ -78,7 +78,7 @@ public class RunningServiceImpl implements RunningService {
     public void deleteByUuidAndUserUuid(DeleteRunningDTO dto) {
         Running entity = repository.findByUuidAndUserUuid(dto.getUuid(), dto.getUserUuid());
         if (entity == null)
-            throw new ServiceRuntimeException(msgService.msg(Code.C_1002.getMsg(), dto.getUuid()), Code.C_1002.getValue());
+            throw new ServiceRuntimeException(msgService.msg(Code.C_1003.getMsg(), dto.getUuid(), dto.getUserUuid()), Code.C_1003.getValue());
 
         repository.delete(entity);
     }

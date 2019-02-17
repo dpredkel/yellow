@@ -1,5 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://postgresdb:5432/yellow
-    username: HKLUSuHFQfpdEdooGzez
-    password: 34tsvMY5e0LCNgi3rixv

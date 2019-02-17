@@ -4,7 +4,7 @@ import com.yellow.test.entity.User;
 import com.yellow.test.exception.Code;
 import com.yellow.test.exception.ServiceRuntimeException;
 import com.yellow.test.mapper.Mapper;
-import com.yellow.test.model.user.CreateUserDTO;
+import com.yellow.test.model.user.SaveUserDTO;
 import com.yellow.test.model.user.UserDTO;
 import com.yellow.test.repository.UserRepository;
 import com.yellow.test.service.msg.MsgService;
@@ -25,21 +25,19 @@ public class UserServiceImpl implements UserService {
     private MsgService msgService;
 
     @Autowired
-    private Mapper<CreateUserDTO, User> mapper;
+    private Mapper<SaveUserDTO, User> mapper;
 
     @Autowired
     private Mapper<User, UserDTO> toDTOMapper;
 
     @Override
-    public UserDTO save(CreateUserDTO dto) {
+    public UserDTO save(SaveUserDTO dto) {
         User existing = repository.findByUsername(dto.getUsername());
         if (existing != null)
             throw new ServiceRuntimeException(msgService.msg(Code.C_1002.getMsg(), dto.getUsername()), Code.C_1002.getValue());
 
         User user = mapper.map(dto);
         User saved = repository.save(user);
-
-        log.info("Created new user | username: {} , uuid: {}", saved.getUsername(), user.getUuid());
         return toDTOMapper.map(saved);
     }
 

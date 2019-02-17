@@ -28,9 +28,9 @@ public class RunningController {
     @ApiOperation("Add new running")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "date", dataType = "string", paramType = "body",
-                    value = "Must be in format yyyy-MMM-dd")
+                    value = "Must be in format yyyyMMdd")
     })
-    public ResponseEntity<RunningDTO> post(@Valid @RequestBody CreateRunningDTO dto, @ApiIgnore OAuth2Authentication authentication) {
+    public ResponseEntity<RunningDTO> post(@Valid @RequestBody SaveRunningDTO dto, @ApiIgnore OAuth2Authentication authentication) {
         String userUuid = TokenUuidExtractor.extract(authentication);
         dto.setUserUuid(userUuid);
 
@@ -39,22 +39,16 @@ public class RunningController {
     }
 
     @PutMapping
+    @ApiOperation("Update running")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "date", dataType = "string", paramType = "body",
+                    value = "Must be in format yyyyMMdd")
+    })
     public ResponseEntity<RunningDTO> put(@Valid @RequestBody UpdateRunningDTO dto, @ApiIgnore OAuth2Authentication authentication) {
         String userUuid = TokenUuidExtractor.extract(authentication);
         dto.setUserUuid(userUuid);
         RunningDTO updated = service.update(dto);
         return ResponseEntity.ok(updated);
-    }
-
-    @GetMapping("/{uuid}")
-    public ResponseEntity<RunningDTO> get(@PathVariable("uuid") String uuid, @ApiIgnore OAuth2Authentication authentication) {
-        String userUuid = TokenUuidExtractor.extract(authentication);
-        GetRunningDTO dto = GetRunningDTO.builder()
-                .uuid(uuid)
-                .userUuid(userUuid)
-                .build();
-        RunningDTO result = service.findByUuidAndUserUuid(dto);
-        return ResponseEntity.ok(result);
     }
 
     @GetMapping
@@ -73,6 +67,17 @@ public class RunningController {
                 .build();
         Page<RunningDTO> page = service.findByUserUuid(dto);
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/{uuid}")
+    public ResponseEntity<RunningDTO> get(@PathVariable("uuid") String uuid, @ApiIgnore OAuth2Authentication authentication) {
+        String userUuid = TokenUuidExtractor.extract(authentication);
+        GetRunningDTO dto = GetRunningDTO.builder()
+                .uuid(uuid)
+                .userUuid(userUuid)
+                .build();
+        RunningDTO result = service.findByUuidAndUserUuid(dto);
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{uuid}")

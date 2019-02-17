@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 
 public interface RunningService {
 
-    RunningDTO save(CreateRunningDTO dto);
+    RunningDTO save(SaveRunningDTO dto);
 
     RunningDTO update(UpdateRunningDTO dto);
 

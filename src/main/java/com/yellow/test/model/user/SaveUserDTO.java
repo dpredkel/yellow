@@ -12,7 +12,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserDTO implements Serializable {
+public class SaveUserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotBlank
@@ -29,7 +29,7 @@ public class CreateUserDTO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CreateUserDTO that = (CreateUserDTO) o;
+        SaveUserDTO that = (SaveUserDTO) o;
         return Objects.equals(getUsername(), that.getUsername()) &&
                 Objects.equals(getPassword(), that.getPassword());
     }
