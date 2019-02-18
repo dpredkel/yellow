@@ -10,6 +10,7 @@ import com.yellow.test.repository.ImageRepository;
 import com.yellow.test.repository.UserRepository;
 import com.yellow.test.service.msg.MsgService;
 import com.yellow.test.util.Generator;
+import com.yellow.test.util.TestGenerator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -52,8 +53,8 @@ public class ImageServiceUnitTest {
     @Test
     public void save() {
         SaveImageDTO dto = SaveImageDTO.builder()
-                .filename(Generator.randomString())
-                .contentType(Generator.randomString())
+                .filename(TestGenerator.randomString())
+                .contentType(TestGenerator.randomString())
                 .data(new byte[0])
                 .userUuid(Generator.uuidAsString())
                 .build();
@@ -122,7 +123,7 @@ public class ImageServiceUnitTest {
                 .build();
 
         when(repository.findByUuidAndUserUuid(dto.getUuid(), dto.getUserUuid())).thenReturn(null);
-        when(msgService.msg(anyString(), anyCollection())).thenReturn(Generator.randomString());
+        when(msgService.msg(anyString(), anyCollection())).thenReturn(TestGenerator.randomString());
 
         service.findByUuidAndUserUuid(dto);
     }

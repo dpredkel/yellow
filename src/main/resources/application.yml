@@ -1,6 +1,8 @@
 server.port: ${PORT:8081}
 
 spring:
+  messages:
+    basename: messages/messages
   application.name: yellow-test
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect

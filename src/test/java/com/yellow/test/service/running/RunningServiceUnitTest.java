@@ -10,6 +10,7 @@ import com.yellow.test.repository.RunningRepository;
 import com.yellow.test.repository.UserRepository;
 import com.yellow.test.service.msg.MsgService;
 import com.yellow.test.util.Generator;
+import com.yellow.test.util.TestGenerator;
 import com.yellow.test.util.ld.LocalDateFormatter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -91,7 +92,7 @@ public class RunningServiceUnitTest {
                 .build();
 
         when(repository.findByUuidAndUserUuid(dto.getUuid(), dto.getUserUuid())).thenReturn(null);
-        when(msgService.msg(anyString(), anyCollection())).thenReturn(Generator.randomString());
+        when(msgService.msg(anyString(), anyCollection())).thenReturn(TestGenerator.randomString());
 
         service.update(dto);
     }
@@ -170,7 +171,7 @@ public class RunningServiceUnitTest {
                 .build();
 
         when(repository.findByUuidAndUserUuid(dto.getUuid(), dto.getUserUuid())).thenReturn(null);
-        when(msgService.msg(anyString(), anyCollection())).thenReturn(Generator.randomString());
+        when(msgService.msg(anyString(), anyCollection())).thenReturn(TestGenerator.randomString());
 
         service.findByUuidAndUserUuid(dto);
     }
@@ -204,7 +205,7 @@ public class RunningServiceUnitTest {
                 .build();
 
         when(repository.findByUuidAndUserUuid(dto.getUuid(), dto.getUserUuid())).thenReturn(null);
-        when(msgService.msg(anyString(), anyCollection())).thenReturn(Generator.randomString());
+        when(msgService.msg(anyString(), anyCollection())).thenReturn(TestGenerator.randomString());
 
         service.deleteByUuidAndUserUuid(dto);
     }

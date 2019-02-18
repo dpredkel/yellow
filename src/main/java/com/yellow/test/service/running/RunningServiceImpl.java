@@ -61,7 +61,7 @@ public class RunningServiceImpl implements RunningService {
     @Transactional(readOnly = true)
     public Page<RunningDTO> findByUserUuid(GetRunningListDTO dto) {
         Page<Running> entities = repository.findByUserUuid(dto.getUserUuid(), dto.getPageable());
-        return entities.map(running -> toDTOMapper.map(running));
+        return entities.map(toDTOMapper::map);
     }
 
     @Override
